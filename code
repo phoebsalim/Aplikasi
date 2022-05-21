@@ -1,0 +1,101 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.stream.*;
+import java.util.*;
+public class kasir1 {
+ 
+    public static void main(String[] args) {
+        //input scanner
+        Scanner input = new Scanner(System.in);
+        BufferedReader input2 = new BufferedReader(new InputStreamReader(System.in));
+ 
+        //inisialisasi variabel
+        int i = 0;
+        String[] barang = new String[100];
+        int[] harga = new int[100];
+        int[] harga2 = new int[100];
+        String keputusan = "Y";
+ 
+        //buat tampilan awal
+        System.out.println("*******************************************");
+        System.out.println("Mini market");
+        System.out.println("Welcome & Happy Shopping");
+        System.out.println("*******************************************");
+        System.out.println("List barang :");
+        System.out.println("1. Bedak  = Rp. 79.999,-");
+        System.out.println("2. Lipstick  = Rp. 94.399,-");
+        System.out.println("3. Eyeshadow  = Rp. 258.450,-");
+        System.out.println("4. Lotion   = Rp. 35.100,-");
+        System.out.println("5. Sunscreen   = Rp. 130.800,-");
+        System.out.println("");
+        System.out.println("*******************************************");
+        System.out.println("");
+ 
+        //pengkondisian
+        while (keputusan.equals("Y") || keputusan.equals("y")) {
+            System.out.print("Silahkan pilih barang yang anda inginkan berdasarkan nomor urutan : ");
+            try {
+                int pil = input.nextInt();
+                switch (pil) {
+                    case 1:
+                        barang[i] = "Bedak";
+                        harga[i] = 79999;
+                        break;
+                    case 2:
+                        barang[i] = "Lipstick";
+                        harga[i] = 94399;
+                        break;
+                    case 3:
+                        barang[i] = "Eyeshadow";
+                        harga[i] = 258450;
+                        break;
+                    case 4:
+                        barang[i] = "Lotion";
+                        harga[i] = 35100;
+                        break;
+                    case 5:
+                        barang[i] = "Deodoran";
+                        harga[i] = 130800;
+                        break;
+                    default:
+                        System.out.println("Barang yang anda inginkan sedang out of stock.");
+                        break;
+                }
+                for (int k = pil; k < 4; k++) {
+                    System.out.println("Barang yang anda pilih adalah : " + barang[i]);
+                    System.out.print("Jumlah pesanan : ");
+                    int jmlbarang = input.nextInt();
+                    harga[i] = harga[i] * jmlbarang;
+                    System.out.println("Harga barang sebesar : Rp. " + harga[i] + " ;");
+                    break;
+                }
+                System.out.println("");
+                int total = harga[i];
+                System.out.println("Total belanja anda sebesar : Rp. " + total + " ;");
+ 
+                System.out.println("Apakah anda ingin order lagi ? Y/N : ");
+                try {
+                    keputusan = input2.readLine();
+                } catch (IOException e) {
+                    System.out.println("Failed to Read Keyboard");
+                }
+                i++;
+                System.out.println("List Pesanan anda adalah : ");
+ 
+                for (int a = 0; a < i; a++) {
+                    System.out.println(barang[a] + ": Rp." + harga[a]);
+                }
+ 
+                System.out.println("");
+ 
+                int sum = IntStream.of(harga).sum();
+                System.out.println("Total pembayaran (Termasuk pajak 10%) : Rp." + sum*1.1);
+            } catch (InputMismatchException e) {
+                System.out.println("Isi dengan input nomor");
+                input.nextLine(); // to reset the scanner
+            }
+        }
+    }
+}
